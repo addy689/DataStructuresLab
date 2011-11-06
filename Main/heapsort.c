@@ -1,4 +1,4 @@
-#include "../HeapLib/heaplib.h"
+#include "..Libraries/HeapLib/heaplib.h"
 
 //Sample main program to input an array, construct a heap using the array, and display the values in the heap in descending order 
 

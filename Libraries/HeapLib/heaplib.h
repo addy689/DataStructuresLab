@@ -10,10 +10,10 @@ void display_heap(int[]);
 
 //MAX HEAP
 void max_heapify(int[],int);
-void build_max_heap(int[]);
+void build_maxheap(int[]);
 void maxheap_sort(int[]);
 
 //MIN HEAP
 void min_heapify(int[],int);
-void build_min_heap(int []);
+void build_minheap(int []);
 void minheap_sort(int[]);

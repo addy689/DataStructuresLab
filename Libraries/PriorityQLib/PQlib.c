@@ -2,13 +2,15 @@
 
 #include "PQlib.h"
 
+
 //MAX PRIORITY QUEUE
-int heap_maximum(int A[])          
+
+int heap_maximum(int A[])	//Returns the maximum value in the PriorityQ
 {
     return A[0];
 }
 
-int heap_max_extract(int A[])
+int heap_max_extract(int A[])	//Extracts and returns the maximum value in the PriorityQ
 {
     int max;
     
@@ -27,28 +29,43 @@ int heap_max_extract(int A[])
     }
 }
 
-void heap_increase_key(int A[],int pos,int key)
+void heap_increase_key(int A[],int pos,int key)		//Increases the value at position 'pos' in the PriorityQ to the value 'key' 
 {
-    if(key<A[pos])
+    if(key<A[pos-1])
 	printf("New Key is smaller than Current Key");
 
     else
     {	
-	A[pos]=key;
+		A[pos-1]=key;
 	
-	while(pos>0 && A[parent(pos+1)-1]<A[pos])
-	{
-	    swap(&A[parent(pos+1)-1],&A[pos]);
-	    pos=parent(pos+1)-1;
+		while(pos>1 && A[parent(pos)-1]<A[pos-1])
+		{
+			swap(&A[parent(pos)-1],&A[pos-1]);
+			pos=parent(pos);
+		}
 	}
-    }
-     
+	
 }
 
-void max_heap_insert(int A[],int key)
+void max_heap_insert(int A[],int key)		//Inserts a value key into the PriorityQ
 {
     heapsize++;
     len=heapsize;
     A[heapsize-1]=-20;
-    heap_increase_key(A,heapsize-1,key);
+    heap_increase_key(A,heapsize,key);
 }
+
+
+//MIN PRIORITY QUEUE
+
+int heap_minimum(int A[])			//Returns the minimum value in the PriorityQ
+{}
+
+int heap_min_extract(int A[])			//Extracts and returns the maximum value in the priority queue
+{}
+
+int heap_decrease_key(int A[],int pos,int key)		//Increases the value at position 'pos' in the PriorityQ to the value 'key' 
+{}
+
+int min_heap_insert(int A[],int key)			//Inserts a value key into the PriorityQ
+{}

@@ -5,7 +5,7 @@
 
 /*	DISPLAY HEAP	*/
 
-void display_heap(int A[])
+void displayHeap(int A[])
 {
 	int i;
 	for(i=0;i<heapsize;i++)
@@ -16,7 +16,7 @@ void display_heap(int A[])
 
 /*	MAX HEAP	*/
 
-void max_heapify(int A[],int x)
+void maxHeapify(int A[],int x)
 {
 	int l,r,max;
 
@@ -38,33 +38,33 @@ void max_heapify(int A[],int x)
 	if(max!=x)
 	{
 		swap(&A[x],&A[max]);
-		max_heapify(A,++max);
+		maxHeapify(A,++max);
 	}
 }
 
-void build_maxheap(int A[])	//build a max heap
+void buildMaxheap(int A[])	//build a max heap
 {
 	int i;
 	for(i=heapsize/2;i>0;i--)
-		max_heapify(A,i);
+		maxHeapify(A,i);
 }
 
-void maxheap_sort(int A[])	//sort a max heap in ascending order
+void maxheapSort(int A[])	//sort a max heap in ascending order
 {
-	build_maxheap(A);
+	buildMaxheap(A);
 
 	while(heapsize>1)
 	{
 		swap(&A[0],&A[heapsize-1]);
 		heapsize--;
-		max_heapify(A,1);
+		maxHeapify(A,1);
 	}
 }
 
 
 /*	MIN HEAP	*/
 
-void min_heapify(int A[],int x)	
+void minHeapify(int A[],int x)	
 {
 	int l,r,min;
 	
@@ -86,25 +86,25 @@ void min_heapify(int A[],int x)
 	{
 		swap(&A[min],&A[x]);
 		
-		min_heapify(A,++min);
+		minHeapify(A,++min);
 	}
 }
 
-void build_minheap(int A[])	//build a min heap
+void buildMinheap(int A[])	//build a min heap
 {
 	int i;
 	for(i=heapsize/2;i>0;i--)
-		min_heapify(A,i);
+		minHeapify(A,i);
 }
 
-void minheap_sort(int A[])	//sort a min heap in descending order
+void minheapSort(int A[])	//sort a min heap in descending order
 {
-	build_minheap(A);
+	buildMinheap(A);
 	
 	while(heapsize>1)
 	{
 		swap(&A[0],&A[heapsize-1]);
 		heapsize--;
-		min_heapify(A,1);
+		minHeapify(A,1);
 	}
 }

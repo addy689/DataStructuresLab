@@ -1,6 +1,7 @@
 # Files to be excluded from Git Tracking
 *~
 Test/
-Main/*.o
-Main/a.out
+*/*.o
+*/a.out
+*/test.c
 

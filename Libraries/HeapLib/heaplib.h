@@ -6,14 +6,14 @@
 int len,heapsize;
 
 //DISPLAY HEAP
-void display_heap(int[]);
+void displayHeap(int[]);
 
 //MAX HEAP
-void max_heapify(int[],int);
-void build_maxheap(int[]);
-void maxheap_sort(int[]);
+void maxHeapify(int[],int);
+void buildMaxheap(int[]);
+void maxheapSort(int[]);
 
 //MIN HEAP
-void min_heapify(int[],int);
-void build_minheap(int []);
-void minheap_sort(int[]);
+void minHeapify(int[],int);
+void buildMinheap(int []);
+void minheapSort(int[]);

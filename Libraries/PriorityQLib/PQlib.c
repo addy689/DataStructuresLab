@@ -6,12 +6,12 @@
 
 //MAX PRIORITY QUEUE
 
-int heap_maximum(int A[])	//Returns the maximum value in the MaxPriorityQ
+int heapMaximum(int A[])	//Returns the maximum value in the MaxPriorityQ
 {
     return A[0];
 }
 
-int heap_max_extract(int A[])	//Extracts and returns the maximum value in the MaxPriorityQ
+int heapMaxExtract(int A[])	//Extracts and returns the maximum value in the MaxPriorityQ
 {
     int max;
     
@@ -23,13 +23,13 @@ int heap_max_extract(int A[])	//Extracts and returns the maximum value in the Ma
 		A[0]=A[heapsize-1];
 
 		heapsize--;
-		max_heapify(A,1);
+		maxHeapify(A,1);
 
 		return max;
     }
 }
 
-void heap_increase_key(int A[],int pos,int key)		//Increases the value at position 'pos' in the MaxPriorityQ to the value 'key' 
+void heapIncreaseKey(int A[],int pos,int key)		//Increases the value at position 'pos' in the MaxPriorityQ to the value 'key' 
 {
     if(key<A[pos-1])
 	printf("New Key is smaller than Current Key");
@@ -47,23 +47,23 @@ void heap_increase_key(int A[],int pos,int key)		//Increases the value at positi
 	
 }
 
-void maxheap_insert(int A[],int key)		//Inserts a value key into the MaxPriorityQ
+void maxheapInsert(int A[],int key)		//Inserts a value key into the MaxPriorityQ
 {
 	heapsize++;
 	len=heapsize;
 	A[heapsize-1]=-12345;
-	heap_increase_key(A,heapsize,key);
+	heapIncreaseKey(A,heapsize,key);
 }
 
 
 //MIN PRIORITY QUEUE
 
-int heap_minimum(int A[])			//Returns the minimum value in the MinPriorityQ
+int heapMinimum(int A[])			//Returns the minimum value in the MinPriorityQ
 {
 	return A[0];
 }
 
-int heap_min_extract(int A[])			//Extracts and returns the minimum value in the MinPriorityQ
+int heapMinExtract(int A[])			//Extracts and returns the minimum value in the MinPriorityQ
 {
 	int min;
 	
@@ -75,12 +75,12 @@ int heap_min_extract(int A[])			//Extracts and returns the minimum value in the 
 		A[0]=A[heapsize-1];
 		
 		heapsize--;
-		min_heapify(A,1);
+		minHeapify(A,1);
 		return min;
 	}
 }
 
-int heap_decrease_key(int A[],int pos,int key)		//Decreases the value at position 'pos' in the MinPriorityQ to the value 'key' 
+int heapDecreaseKey(int A[],int pos,int key)		//Decreases the value at position 'pos' in the MinPriorityQ to the value 'key' 
 {
 	if(key>A[pos-1])
 	printf("New Key is greater than Current Key");
@@ -97,10 +97,10 @@ int heap_decrease_key(int A[],int pos,int key)		//Decreases the value at positio
 	}
 }
 
-int minheap_insert(int A[],int key)			//Inserts a value key into the MinPriorityQ
+int minheapInsert(int A[],int key)			//Inserts a value key into the MinPriorityQ
 {
 	heapsize++;
 	len=heapsize;
 	A[heapsize-1]=12345;
-	heap_decrease_key(A,heapsize,key);
+	heapDecreaseKey(A,heapsize,key);
 }

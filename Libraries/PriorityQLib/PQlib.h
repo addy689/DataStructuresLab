@@ -3,13 +3,13 @@
 #include<stdio.h>
 
 //MAX PRIORITY QUEUE
-int heap_maximum(int[]);
-int heap_max_extract(int[]);
-void heap_increase_key(int[],int,int);
-void maxheap_insert(int[],int);
+int heapMaximum(int[]);
+int heapMaxExtract(int[]);
+void heapIncreaseKey(int[],int,int);
+void maxheapInsert(int[],int);
 
 //MIN PRIORITY QUEUE
-int heap_minimum(int[]);
-int heap_min_extract(int[]);
-int heap_decrease_key(int[],int,int);
-int minheap_insert(int[],int);
+int heapMinimum(int[]);
+int heapMinExtract(int[]);
+int heapDecreaseKey(int[],int,int);
+int minheapInsert(int[],int);

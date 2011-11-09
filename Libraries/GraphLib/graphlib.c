@@ -142,4 +142,3 @@ void displayGraph(struct Vertex *V)
 	}
 	printf("\n");
 }
-

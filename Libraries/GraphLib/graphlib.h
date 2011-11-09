@@ -3,10 +3,10 @@
 #include<stdio.h>
 
 #define WEIGHTED 1
-#define NON 0
+#define NONWEIGHTED 0
 
 int wtd;
-static int vcnt=0;
+int vcnt;
 
 //Structure that defines the members of a Vertex in the graph
 struct Vertex{

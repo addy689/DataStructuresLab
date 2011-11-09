@@ -1,7 +1,12 @@
+/* This header file contains the function declarations for handling Graph related operations */
+
 #include<stdio.h>
 
-int time,flag,wtd;
-static int i=0;
+#define WEIGHTED 1
+#define NON 0
+
+int wtd;
+static int vcnt=0;
 
 //Structure that defines the members of a Vertex in the graph
 struct Vertex{
@@ -16,22 +21,10 @@ struct Vertex{
 		int *wt;	//pointer to an array that stores weight of each edge
 	};
 
-//Structure that defines a BFS Tree
-struct Tree{
-		int out_deg;
-		int ctr;
-		int *adj;
-	}*T;
 
-void addVertex(struct Vertex *);
-int* addAdjVert(int);
+void buildGraph(struct Vertex **);		//constructs a graph at runtime by calling addVertex repeatedly
+void addVertex(struct Vertex **);		//adds a vertex to the graph at runtime
+void addAdjVert(int**,int);				//allocates memory at runtime for storing (vertices + weights) for a particular vertex
+void freeGraph(struct Vertex **);		//releases the memory allocated to the graph 
+void displayGraph(struct Vertex *);		//displays the inputed graph
 
-void input_graph(struct Vertex *);
-void display_graph(struct Vertex *);
-void BFS(struct Vertex *,int);
-void reachable_vertices(struct Vertex *,int);
-void shortest_path(struct Vertex *, int);
-int shortest_dist(struct Vertex *, int);
-void display_bfstree();
-void DFS(struct Vertex *);
-void DFS_Visit(struct Vertex *,int);

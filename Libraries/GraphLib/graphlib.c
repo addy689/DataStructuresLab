@@ -1,44 +1,140 @@
-/*
+/* This file contains function definitions for handling Graph related operations */
 
-*/
-
-#include "../QLib/queuelib.h"
 #include "graphlib.h"
+#include "../QueueLib/queuelib.h"
 #include<stdlib.h>
+
 #define WHITE 0
 #define GRAY 1
 #define BLACK 2
 
-void input_graph(struct Vertex *V)
+void buildGraph(struct Vertex ** vt)
 {
-	int i,j,num;
+	char c;
 
-	for(i=0;i<n;i++)
-	{
-		printf("\n---VERTEX %d---\nInput no. of adjacent vertices: ",i+1);
-		scanf("%d",&num);
-		
-		V[i].out_deg = num;
-		V[i].adj=malloc(sizeof(int)*num);
-		V[i].wt=malloc(sizeof(int)*num);
-		
-		printf("Input adjacent vertices -\n");
-		for(j=0;j<num;j++)
-		{
-			scanf("%d",&(V[i].adj[j]));
-			V[i].adj[j]-=1;
-		}
-		printf("Input corresponding weights -\n");
-		for(j=0;j<num;j++)
-			scanf("%d",&(V[i].wt[j]));
-	}
+	do{
+		printf("\n---VERTEX %d---\n",vcnt+1);
+		addVertex(vt);
+		printf("Input one more vertex? (Y/N) - ");
+		scanf("%c",&c);
+		scanf("%c",&c);
+		}while(c=='Y' || c=='y');
 }
 
-void display_graph(struct Vertex *V)
+void addVertex(struct Vertex ** vt)
+{
+	int num,wgt,in,out,outctr,k,flg;
+	(*vt)=(struct Vertex *)realloc(*vt,sizeof(struct Vertex)*(vcnt+1));
+	
+	struct Vertex *Vt;
+	Vt=*vt;
+	
+	outctr=0;	//keeps count of outbound vertices
+	flg=0;
+	
+		
+	//INPUT LIST OF INBOUND VERTICES FOR THE CURRENT VERTEX
+	printf(" List adjacent Inbound vertices ");
+	if(wtd==WEIGHTED)
+		printf("and corresponding weights ");
+	printf("(Enter V=-1 to stop inputing):\n");
+	
+	do
+	{
+		printf(" V= ");
+		scanf("%d",&in); 	//takes vertex index as input in a variable 'ch'
+		
+		if(in!=-1)		//if input is -1, stops input  
+		{
+			if(wtd==WEIGHTED)
+			{
+				printf(" Wt= ");
+				scanf("%d",&wgt);
+			}
+			
+			if(in<=vcnt)	//checks if the inbound vertex exists and is not already present, and updates its adjacency list
+			{
+				k=0;
+				while(k<Vt[in].out_deg)		//searches the adjacent vertices array of vertex 'in' for occurence of vertex 'vcnt' 
+				{
+					if(Vt[in].adj[k]==vcnt)
+						flg=1;
+					k++;
+				}
+					
+				if(flg==1)
+				{
+					in--;
+					num=Vt[in].out_deg++;
+					addAdjVert(&Vt[in].adj,num+1);
+					Vt[in].adj[num]=vcnt;
+				
+					if(wtd==WEIGHTED)
+					{
+						addAdjVert(&Vt[in].wt,num+1);
+						Vt[in].wt[num]=wgt;
+					}
+				}
+				
+			}
+		}
+		
+	}while(in!=-1);
+	
+	
+	//INPUT LIST OF OUTBOUND VERTICES FOR THE CURRENT VERTEX
+	printf("\n List adjacent Outbound vertices and Corresponding weights (Enter V=-1 to stop inputing):\n");
+	
+	Vt[vcnt].adj=NULL;
+	Vt[vcnt].wt=NULL;
+	do
+	{
+		printf(" V= ");
+		scanf("%d",&out); 	//takes vertex index as input in a variable 'ch'
+		
+		if(out!=-1)		//if input is -1, stops input  
+		{
+			addAdjVert(&Vt[vcnt].adj,outctr+1);
+			Vt[vcnt].adj[outctr]=out-1;
+			
+			if(wtd==WEIGHTED)
+			{
+				printf(" Wt= ");
+				scanf("%d",&wgt);
+				addAdjVert(&Vt[vcnt].wt,outctr+1);
+				Vt[vcnt].wt[outctr]=wgt;
+			}
+			
+			outctr++;
+		}
+		
+	}while(out!=-1);
+	
+	Vt[vcnt].out_deg=outctr;
+	vcnt++;
+}
+
+void addAdjVert(int **arr,int num)
+{
+	(*arr)=(int *)realloc(*arr,sizeof(int)*num);
+}
+
+void freeGraph(struct Vertex ** vt)
+{
+	int u;
+	for(u=0;u<vcnt;u++)
+	{
+		free((*vt)[u].adj);
+		free((*vt)[u].wt);
+	}
+	free(*vt);
+}
+
+void displayGraph(struct Vertex *V)
 {
 	int i,j;
 		
-	for(i=0;i<n;i++)
+	for(i=0;i<vcnt;i++)
 	{
 		printf("\n%d ->\t",i+1);
 		for(j=0;j<(V[i].out_deg);j++)
@@ -47,239 +143,3 @@ void display_graph(struct Vertex *V)
 	printf("\n");
 }
 
-void BFS(struct Vertex *V,int s)
-{
-	int i,j,u,p,ct;
-	
-	Q.size=n;
-	Q.front=Q.rear=-1;
-	Q.arr=malloc(sizeof(int)*n);
-		
-	ct=sizeof(*T) * n;
-	T=(struct Tree*)malloc(ct);
-
-	for(i=0;i<n;i++)
-		T[i].ctr=0;
-
-	for(i=0;i<n;i++)
-	{
-		if(i==s)
-			continue;
-
-		V[i].color=WHITE;
-		V[i].parent=-1;
-		V[i].dist=-1;
-	}
-	
-
-	V[s].color=GRAY;
-	V[s].parent=-2;
-	V[s].dist=0;
-
-	enqueue(s);
-	
-	while(!isQueueEmpty())
-	{
-		u=dequeue();
-		if(V[u].parent!=-2)
-		{
-			p=V[u].parent;
-			ct=T[p].ctr;
-			T[p].adj[ct]=u;
-			T[p].ctr++;
-		}
-
-		T[u].out_deg=0;
-		for(i=0;i<V[u].out_deg;i++)
-		{
-			j=V[u].adj[i];
-			
-			if(V[j].color==WHITE)
-			{
-				V[j].color=GRAY;
-				V[j].parent=u;
-				V[j].dist=V[u].dist+1;
-				enqueue(j);
-				T[u].out_deg++;					
-			}
-		}
-		
-		T[u].adj=malloc(T[u].out_deg * sizeof(int));
-		V[u].color=BLACK;
-	}
-
-	free(Q.arr);
-}
-
-void reachable_vertices(struct Vertex *V,int s)
-{
-	int i;
-	
-	for(i=0;i<n;i++)
-		if(V[i].color!=WHITE && i!=s)
-			printf(" %d",i+1);
-	printf("\n");		V[i].adj=malloc(sizeof(int)*num);
-		V[i].wt=malloc(sizeof(int)*num);
-}
-
-void shortest_path(struct Vertex *V, int x)
-{
-	if(V[x].parent==-2)
-		printf(" %d",x+1);
-		
-	else if(V[x].parent==-1)
-		printf("\nThis vertex is not reachable from the source vertex!!");
-
-	else
-	{
-		shortest_path(V,V[x].parent);	
-		printf(" %d",x+1);	
-	}
-}
-
-int shortest_dist(struct Vertex *V,int x)
-{
-	return V[x].dist;
-}
-
-void display_bfstree()
-{
-	int i,j;
-		
-	for(i=0;i<n;i++)
-	{
-		printf("\n%d ->\t",i+1);
-		for(j=0;j<(T[i].out_deg);j++)
-			printf("%d ",T[i].adj[j]+1);
-	}
-	printf("\n");
-}
-
-void DFS(struct Vertex *V)
-{
-	int i;
-	
-	for(i=0;i<n;i++)
-	{
-		V[i].color=WHITE;
-		V[i].parent=-1;
-		V[i].dist=-1;
-	}
-	
-	time=0;
-	flag=0;
-	for(i=0;i<n;i++)
-	{
-		if(V[i].color==WHITE)
-		{
-			V[i].dist=0;
-			V[i].parent=-2;
-			DFS_Visit(V,i);
-		}
-	}
-	
-	for(i=0;i<n;i++)
-		printf("\n\n%d ",V[i].parent);
-	printf("\n\n");
-}
-
-void DFS_Visit(struct Vertex *V,int u)
-{
-	int i,j;
-	
-	V[u].d=++time;
-	V[u].color=GRAY;
-	
-	for(i=0;i<V[u].out_deg;i++)
-	{
-		j=V[u].adj[i];
-		if(V[j].color==WHITE)
-		{
-			V[j].parent=u;
-			V[j].dist=V[u].dist+1;
-			
-			DFS_Visit(V,j);
-			V[j].color=BLACK;
-			V[j].f=++time;
-		}
-		else if(V[j].color==GRAY)
-			flag=1;
-	}
-}
-
-int* addAdjVert(int num)
-{
-	int *arr;
-	arr=(int *)realloc(arr,sizeof(int)*num);
-	return arr;
-}
-
-void addVertex(struct Vertex *V)
-{
-	int num,wgt,ch,outctr;
-	V=(struct Vertex *)realloc(V,sizeof(struct Vertex)*(i+1));
-	
-	outctr=0;	//keeps count of outbound vertices
-	
-		
-	//INPUT LIST OF INBOUND VERTICES FOR THE CURRENT VERTEX
-	printf("List adjacent Inbound  vertices and Corresponding weights (Enter V = -1 to stop inputing) -");
-	do
-	{
-		printf("\n V = ");
-		scanf("%d",ch); 	//takes vertex index as input in a variable 'ch'
-		
-		if(ch!=-1)		//if input is -1, stops input  
-		{
-			if(wtd==TRUE)
-			{
-				printf(" Wt = ");
-				scanf("%d",&wgt);
-			}
-			
-			if(ch<=i)	//checks if the inbound vertex exists, and updates its adjacency list
-			{
-				ch--;
-				num=V[ch].out_deg++;
-				V[ch].adj=addAdjVert(num+1);
-				V[ch].adj[num]=i-1;
-				
-				if(wtd==TRUE)
-				{
-					V[ch].wt=addAdjVert(num+1);
-					V[ch].wt[num]=wgt;
-				}
-			}
-			
-		}
-		
-	}while(ch!=-1);
-	
-	
-	//INPUT LIST OF OUTBOUND VERTICES FOR THE CURRENT VERTEX
-	printf("\n\nList adjacent Outbound vertices and Corresponding weights (Enter V = -1 to stop inputing) -");
-	do
-	{
-		printf("\n V = ");
-		scanf("%d",ch); 	//takes vertex index as input in a variable 'ch'
-		
-		if(ch!=-1)		//if input is -1, stops input  
-		{
-			V[i].adj=addAdjVert(outctr+1);
-			V[i].adj[outctr]=ch-1;
-			
-			if(wtd==TRUE)
-			{
-				printf(" Wt = ");
-				scanf("%d",&wgt);
-				V[i].wt[outctr]=addAdjVert(outctr+1);
-			}
-			
-			outctr++;
-		}
-		
-	}while(ch!=-1);
-	
-	V[i].out_deg=outctr;
-	i++;
-}

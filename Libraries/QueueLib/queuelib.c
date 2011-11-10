@@ -1,26 +1,38 @@
+/**
+* This file contains function definitions for an Integer Queue Implementation 
+*/
+
 #include "queuelib.h"
+#include<stdlib.h>
 
-void enqueue(int e)
+void initQueue(struct Queue *Q,int num)
 {
-	if(!isQueueFull())
+	(*Q).size=num;
+	(*Q).front=(*Q).rear=-1;
+	(*Q).arr=malloc(sizeof(int)*num);
+}
+
+void enqueue(struct Queue *Q,int e)
+{
+	if(!isQueueFull(*Q))
 	{
-		Q.rear++;
-		Q.rear=Q.rear%Q.size;
-		Q.arr[Q.rear]=e;
+		(*Q).rear++;
+		(*Q).rear=(*Q).rear%(*Q).size;
+		(*Q).arr[(*Q).rear]=e;
 	}
 }
 
-int dequeue()
+int dequeue(struct Queue *Q)
 {
-	if(!isQueueEmpty(Q))
+	if(!isQueueEmpty(*Q))
 	{
-		Q.front++;
-		Q.front=Q.front%Q.size;
-		return Q.arr[Q.front];
+		(*Q).front++;
+		(*Q).front=(*Q).front%(*Q).size;
+		return (*Q).arr[(*Q).front];
 	}
 }
 
-int isQueueEmpty()
+int isQueueEmpty(struct Queue Q)
 {	
 	if(Q.rear==Q.front)
 	{
@@ -33,7 +45,7 @@ int isQueueEmpty()
 	}
 }
 
-int isQueueFull()
+int isQueueFull(struct Queue Q)
 {
 	if(Q.front-Q.rear==1 || Q.rear-Q.front==Q.size)
 	{
@@ -46,7 +58,7 @@ int isQueueFull()
 	}
 }
 
-void printQueue()
+void printQueue(struct Queue Q)
 {
 	int i;
 	
@@ -55,4 +67,9 @@ void printQueue()
 		printf("%d ",Q.arr[i]);
 	}
 	printf("\n");
+}
+
+void freeQueue(struct Queue *Q)
+{
+	free((*Q).arr);
 }

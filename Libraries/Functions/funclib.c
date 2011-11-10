@@ -1,3 +1,7 @@
+/**
+* This file contains the function definitions for some reusable functions.
+*/
+
 #include "funclib.h"
 
 //GENERAL

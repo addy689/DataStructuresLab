@@ -1,10 +1,12 @@
-/* This file contains function definitions for Min Heap and Max Heap operations */ 
+/**
+* This file contains function definitions for Min Heap and Max Heap operations 
+*/
 
 #include "heaplib.h"
 #include "../Functions/funclib.h"
 
-/*	DISPLAY HEAP	*/
 
+//DISPLAY HEAP
 void displayHeap(int A[])
 {
 	int i;
@@ -14,8 +16,7 @@ void displayHeap(int A[])
 }
 
 
-/*	MAX HEAP	*/
-
+//MAX HEAP
 void maxHeapify(int A[],int x)
 {
 	int l,r,max;
@@ -62,8 +63,7 @@ void maxheapSort(int A[])	//sort a max heap in ascending order
 }
 
 
-/*	MIN HEAP	*/
-
+//MIN HEAP
 void minHeapify(int A[],int x)	
 {
 	int l,r,min;

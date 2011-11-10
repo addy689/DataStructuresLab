@@ -1,11 +1,12 @@
-/* This file contains function definitions for handling Max Priority Queue and Min Priority Queue operations */ 
+/**
+* This file contains function definitions for handling Max Priority Queue and Min Priority Queue operations 
+*/
 
 #include "PQlib.h"
 #include "../HeapLib/heaplib.h"
 
 
 //MAX PRIORITY QUEUE
-
 int heapMaximum(int A[])	//Returns the maximum value in the MaxPriorityQ
 {
     return A[0];
@@ -57,7 +58,6 @@ void maxheapInsert(int A[],int key)		//Inserts a value key into the MaxPriorityQ
 
 
 //MIN PRIORITY QUEUE
-
 int heapMinimum(int A[])			//Returns the minimum value in the MinPriorityQ
 {
 	return A[0];

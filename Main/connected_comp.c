@@ -1,5 +1,11 @@
-/*
-Sample main program to input a graph and list all its connected components using Disjoint Set data structure
+/**
+* Sample main program to input a graph and list all its connected components using Disjoint Set data structure.
+
+*This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
+
+*	gcc -c ../Libraries/GraphLib/graphlib.c
+*	gcc -c ../Libraries/DjSetLib/djsetlib.c
+
 */
 
 #include "../Libraries/GraphLib/graphlib.h"
@@ -8,15 +14,22 @@ Sample main program to input a graph and list all its connected components using
 
 int main()
 {
-	int u,v,i,j,ru,rv;
+	int i,j;
+	int u,v;
+	int ru,rv;
+	
 	struct Vertex *V;
+	
 	V=NULL;
 	vcnt=0;
-	
 	wtd=NONWEIGHTED;
+	
 	printf("\n**Input Graph**\n");
+	
 	buildGraph(&V);
+	
 	displayGraph(V);
+	
 	
 	//Disjoint Set Operations begin here
 	struct Dset *D;
@@ -60,7 +73,10 @@ int main()
 			printf(")\n");
 		}
 	}
+	
 	free(D);
+	
 	freeGraph(&V);
+	
 	return 0;
 }

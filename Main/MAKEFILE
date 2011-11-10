@@ -1,0 +1,25 @@
+# This file can be used to compile and run your program, instead of typing "gcc blah blah..." in the terminal everytime.
+
+# USING THIS FILE - 
+
+#1) Simply uncomment the libraries below that you require to compile your program. The libraries needed for any of the programs in the Main/ folder are mentioned inside that program
+
+#2) Write the name of the program that you are compiling. For example, the syntax below will compile "someprogram.c"
+
+#3) In the terminal, make this file executable by typing (don't type the double quotes, of course) "chmod a+x MAKEFILE".
+
+#4) Then type "./MAKEFILE".
+
+#---- END OF COMMENT ----
+
+
+#gcc -c ../Libraries/GraphTraversalLib/graphTravlib.c
+#gcc -c ../Libraries/GraphLib/graphlib.c
+#gcc -c ../Libraries/DjSetLib/djsetlib.c
+#gcc -c ../Libraries/PriorityQLib/PQlib.c
+#gcc -c ../Libraries/HeapLib/heaplib.c
+#gcc -c ../Libraries/Functions/funclib.c
+#gcc -c ../Libraries/QueueLib/queuelib.c
+
+gcc someprogram.c *.o
+./a.out

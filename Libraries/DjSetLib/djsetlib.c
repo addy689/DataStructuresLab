@@ -1,4 +1,6 @@
-/* This header file contains the function definitions for handling Disjoint Set data structure operations */
+/**
+* This header file contains the function definitions for handling Disjoint Set data structure operations 
+*/
 
 #include "djsetlib.h"
 

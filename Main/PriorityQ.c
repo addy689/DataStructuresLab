@@ -1,5 +1,12 @@
-/*
-Sample main program to input an array, construct a PriorityQ using the array, and perform basic operations on Priority Queues.
+/**
+* Sample main program to input an array, construct a PriorityQ using the array, and perform basic operations on Priority Queues.
+
+*This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
+
+*	gcc -c ../Libraries/PriorityQLib/PQlib.c
+*	gcc -c ../Libraries/HeapLib/heaplib.c
+*	gcc -c ../Libraries/Functions/funclib.c
+
 */
 
 #include "../Libraries/HeapLib/heaplib.h"

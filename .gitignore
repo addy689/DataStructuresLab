@@ -1,5 +1,7 @@
 # Files to be excluded from Git Tracking
+
 *~
+
 Test/
 
 *.o
@@ -11,5 +13,3 @@ Test/
 
 */test.c
 */*/test.c
-
-Libraries/ShPathLib

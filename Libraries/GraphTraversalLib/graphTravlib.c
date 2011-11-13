@@ -2,9 +2,11 @@
 * This file contains function definitions for handling Graph related operations 
 */
 
+//header file "graphlib.h" has been included in file "graphTravlib.h"
 #include "graphTravlib.h"
 #include "../QueueLib/queuelib.h"
 
+//BREADTH FIRST SEARCH
 void breadthFirstSearch(struct Vertex *V,int s)
 {
 	int u,v;
@@ -48,6 +50,18 @@ void breadthFirstSearch(struct Vertex *V,int s)
 	freeQueue(&Q);
 }
 
+void printReachable(struct Vertex *V,int s)
+{
+	int i;
+	
+	printf("%d ->",s+1);
+	for(i=0;i<vcnt;i++)
+	{
+		if(V[i].color!=WHITE && i!=s)
+			printf(" %d",i+1);
+	}
+}
+
 void printShortestPath(struct Vertex *V,int s,int u)
 {
 	if(u==s)
@@ -63,14 +77,75 @@ void printShortestPath(struct Vertex *V,int s,int u)
 	}
 }
 
-void printReachable(struct Vertex *V,int s)
+
+//DEPTH FIRST SEARCH
+void depthFirstSearch(struct Vertex *V)
+{
+	int u;
+	
+	for(u=0;u<vcnt;u++)
+	{
+		V[u].color	=	WHITE;
+		V[u].parent	=	NIL;
+	}
+	
+	time = 0;
+	
+	for(u=0;u<vcnt;u++)
+	{
+		if(V[u].color==WHITE)
+			dfsVisit(V,u);
+	}
+}
+
+void dfsVisit(struct Vertex *V,int u)
 {
 	int i;
+	int v;
 	
-	printf("%d ->",s+1);
-	for(i=0;i<vcnt;i++)
+	V[u].color	=	GRAY;
+	V[u].d		=	++time;
+	
+	for(i=0;i<V[u].out_deg;i++)
 	{
-		if(V[i].color!=WHITE && i!=s)
-			printf(" %d",i+1);
+		v = V[u].adj[i];
+		
+		if(V[v].color==WHITE)
+		{
+			V[v].parent = u;
+			printf("\n(%d,%d) is a tree edge",u+1,v+1);
+			dfsVisit(V,v);
+		}
+		
+		//check if edge is a 'back', 'forward' or 'cross' edge
+		else if(V[v].color==GRAY)
+		{
+			cycle = 1;		//cycle detected in graph
+			printf("\n(%d,%d) is a back edge",u+1,v+1);
+		}
+
+		else if(V[v].color==BLACK)
+		{
+			if(isForwardEdge(V,u,v))
+				printf("\n(%d,%d) is a forward edge",u+1,v+1);
+				
+			else printf("\n(%d,%d) is a cross edge",u+1,v+1);
+		}
 	}
+	
+	V[u].color	=	BLACK;
+	V[u].f		=	++time;
+}
+
+int isForwardEdge(struct Vertex *V,int u,int v)
+{
+	while(V[v].parent!=NIL)
+	{
+		v = V[v].parent;
+		
+		if(v==u)
+			return 1;
+	}
+	
+	return 0;
 }

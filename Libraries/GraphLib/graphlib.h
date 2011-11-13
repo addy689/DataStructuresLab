@@ -7,8 +7,9 @@
 #define WEIGHTED 1
 #define NONWEIGHTED 0
 
-int wtd;
-int vcnt;
+int wtd;				//stores 1 if graph is weighted, otherwise stores 0
+int vcnt;				//stores count of vertices in the graph
+int addvt;				//stores 1 if vertex is being added after entire graph has already been inputed once
 
 //Structure that defines the members of a Vertex in the graph
 struct Vertex{

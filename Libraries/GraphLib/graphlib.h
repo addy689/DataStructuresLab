@@ -28,6 +28,5 @@ struct Vertex{
 void buildGraph(struct Vertex **);		//constructs a graph at runtime by calling addVertex repeatedly
 void addVertex(struct Vertex **);		//adds a vertex to the graph at runtime
 void addAdjVert(int**,int);				//allocates memory at runtime for storing adjacent vertices + weights for a vertex
-void freeGraph(struct Vertex **);		//releases the memory allocated to the graph 
+void freeGraph(struct Vertex **);		//releases the memory allocated to the graph
 void displayGraph(struct Vertex *);		//displays the inputed graph
-

@@ -1,52 +1,99 @@
-#include "ShPath_lib.h"
+/**
+* Sample main program to find single source shortest path using Bellman Ford and Dijkstra's algorithms 
+
+*This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
+
+*	gcc -c ../Libraries/ShPathLib/shpathlib.c
+*	gcc -c ../Libraries/GraphTraversalLib/graphTravlib.c
+*	gcc -c ../Libraries/GraphLib/graphlib.c
+*	gcc -c ../Libraries/QueueLib/queuelib.c
+
+
+*/
+
+#include "../Libraries/ShPathLib/shpathlib.h"
 
 main()
 {
-	int ch,s,x;
-	char c;
+	int x;
+	int s;			//stores index of the source vertex
+	int ch1,ch2,c;	//stores user's choice
+	int negcycle;	//stores 1 if negative weight cycle is present, otherwise stores 0
 	
-	printf("Input no. of vertices: ");
-	scanf("%d",&n);
+	//initialize
+	wtd = WEIGHTED;
+	vcnt = 0;
+	addvt = 0;
 	
-	struct Vertex V[n];
+	//input graph and display
+	struct Vertex *V;
+	V=NULL;
 	
-	input_graph(V);
-	display_graph(V);
+	printf("\n**Input Graph**\n");
+	buildGraph(&V);
+	displayGraph(V);
+
+	//MENU for selecting method of computing shortest path of vertices from single source
+	printf("\n1. Bellman Ford");
+	printf("\n2. Dijkstra's");
+	printf("\nEnter choice (1 or 2): ");
+	scanf("%d",&ch1);
 	
-	do
+	
+	//MENU for Bellman Ford
+	if(ch1==1)
 	{
-		printf("\n-------MENU--------\n\n1. Bellman Ford\n2. Bellman Ford Modified\n3. Dijkstra's\n");
-	 	
-		printf("\nEnter choice (1-3): ");
-		scanf("%d",&ch);	
-	
-		switch(ch)
+		printf("\nInput Source Vertex: ");
+		scanf("%d",&s);
+		
+		negcycle = !bellmanFord(V,s-1);
+		printf("\nShortest path calculation complete!!!\n");
+		
+		
+		do
 		{
-			case 1: printf("\nInput source vertex s: ");
-				scanf("%d",&s);
-	
-				x=Bellman_Ford(V,s-1);
-				if(x==0)
-					printf("\nThere is a negative weight cycle!");
-				break;
-						
-			case 2: printf("\nInput source vertex s: ");
-				scanf("%d",&s);
-	
-				Bellman(V,s-1);
-				break;
-					
-			case 3: printf("\nVertices reachable from source vertex (i.e., %d) - ",s);
-					reachable_vertices(V,s-1); 
-					break;
+			printf("\n-------MENU--------\n\n");
+			printf("1.) Display Adjacency List representation of inputed graph\n");
+			printf("2.) Input a vertex, and print the shortest path to that vertex from the source vertex\n");
+			printf("3.) Print each of those vertices that have a negative weight cycle on some path from the source to that vertex\n");
+			printf("\nEnter choice (1-3): ");
+			scanf("%d",&ch2);
+			
+			switch(ch2)
+			{
+				case 1:		displayGraph(V);
+							break;
 				
-			default: c='n';
-		}
+				case 2:		if(negcycle)
+							{
+								printf("\nNegative weight cycle has been detected!!");
+								break;
+							}
+							
+							printf("\n***Print Shortest Path***");
+							printf("\nEnter vertex: ");
+							scanf("%d",&x);
+							printf("\nPath - ");
+							printShPath(V,s-1,x-1);
+							break;
+							
+				case 3:		printf("\nList of vertices with a -ve weight cycle on some path from the source to that vertex --\n");
+							listNegCycleVertices(V,s-1);
+							break;
+				
+				default: c='n';
+			}
 
-		printf("\n\nDo you want to go back to menu? (Y/N) - ");
-		scanf("%c",&c);
-		scanf("%c",&c);
-
-	}while(c=='Y' || c=='y');
+			printf("\n\nDo you want to go back to menu? (Y/N) - ");
+			scanf("%c",&c);
+			scanf("%c",&c);
+			
+		}while(c=='Y' || c=='y');
+	}
+	
+	
+	//MENU for Dijkstra's
+	
+	
 }
 

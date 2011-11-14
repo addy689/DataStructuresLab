@@ -1,5 +1,5 @@
 /**
-* This file contains the function definitions for the various algorithms used to compute Single Source Shortest Path 
+* This file contains the function definitions for three algorithms used to compute Single Source Shortest Path 
 */
 
 #include "shpathlib.h"
@@ -17,112 +17,84 @@ void initializeSrc(struct Vertex *V,int s)
 	V[s].dist = 0;
 }
 
-void relax()
+void relax(struct Vertex *V,int u,int k)
 {
+	int Ud,Vd,W;
+	int v;
 	
+	Ud = V[u].dist;
+	W = V[u].wt[k];
+
+	v = V[u].adj[k];
+	Vd = V[v].dist;
+	
+	if(Vd > Ud + W)
+	{
+		V[v].dist = Ud + W;
+		V[v].parent = u;
+	}
 }
 
-/*#include "ShPath_lib.h"*/
-/*#include "heaplib.h"*/
+//BELLMAN FORD
+int bellmanFord(struct Vertex *V,int s)
+{
+	int i,j;
+	int u,v;
+	
+	initializeSrc(V,s);
+	
+	for(i=0;i<vcnt-1;i++)
+		for(u=0;u<vcnt;u++)
+			for(j=0;j<V[u].out_deg;j++)
+				relax(V,u,j);
+				
+	//check for negative weight cycles
+	for(u=0;u<vcnt;u++)
+	{
+		for(j=0;j<V[i].out_deg;j++)
+		{
+			v = V[u].adj[j];
+			if(V[v].dist > V[u].dist + V[u].wt[j])
+				return 0;
+		}
+	}
+	
+	return 1;
+}
 
+void printShPath(struct Vertex *V,int s,int v)
+{
+	if(v==s)
+		printf("%d",s);
+	
+	else if(V[v].parent==NIL)
+		printf("Inputed vertex is not reachable from the source vertex!!\n");
+	
+	else 
+	{
+		printShPath(V,s,V[v].parent);
+		printf(" -> %d",v);
+	}
+}
 
-/*void Initialize_SS(struct Vertex *V,int s)*/
-/*{*/
-/*	int i;*/
-/*	for(i=0;i<n;i++)*/
-/*	{*/
-/*		V[i].dist=12345;*/
-/*		V[i].parent=-1;*/
-/*	}*/
-/*	*/
-/*	V[s].dist=0;*/
-/*}*/
-
-/*void Relax(struct Vertex *V,int u,int k)*/
-/*{*/
-/*	int U_d,V_d,W,v;*/
-/*	*/
-/*	U_d = V[u].dist;*/
-/*	W = V[u].wt[k];*/
-
-/*	v = V[u].adj[k];*/
-/*	V_d = V[v].dist;*/
-/*	*/
-/*	if(V_d > U_d + W)*/
-/*	{*/
-/*		V[v].dist = U_d + W;*/
-/*		V[v].parent = u;*/
-/*	}*/
-/*}*/
-
-/*//BellMan Ford*/
-/*int Bellman_Ford(struct Vertex *V,int s)*/
-/*{*/
-/*	int i,j,u,v;*/
-/*	*/
-/*	Initialize_SS(V,s);*/
-/*	for(i=0;i<n-1;i++)*/
-/*		for(u=0;u<n;u++)*/
-/*			for(j=0;j<V[u].out_deg;j++)*/
-/*				Relax(V,u,j);*/
-/*	*/
-/*	printf("\n\nCOOL--");*/
-/*	for(i=0;i<n;i++)*/
-/*		printf("%d, ", V[i].dist);*/
-/*				*/
-/*	for(u=0;u<n;u++)*/
-/*	{*/
-/*		for(j=0;j<V[u].out_deg;j++)*/
-/*		{*/
-/*			v = V[u].adj[j];*/
-/*			if(V[v].dist > V[u].dist + V[u].wt[j])*/
-/*				return 0;*/
-/*		}*/
-/*	}*/
-/*	*/
-/*	*/
-/*	//printing shortest paths to vertices reachable from source vertex*/
-/*	printf("\n\n----SHORTEST PATHS-----");*/
-/*	for(i=0;i<n;i++)*/
-/*	{*/
-/*		if(V[i].dist==12345 || i==s)*/
-/*			continue;*/
-/*			*/
-/*		else*/
-/*			print_path(V,i,s);*/
-/*	}*/
-/*	  	*/
-/*	return 1;*/
-/*				*/
-/*}*/
-
-/*void print_path(struct Vertex *V,int u,int s)*/
-/*{*/
-/*	int st[n],ctr,i,temp;*/
-/*	*/
-/*	temp=u;*/
-/*	*/
-/*	ctr=0;*/
-/*	while(u!=s)*/
-/*	{*/
-/*		st[ctr++]=u;*/
-/*		u=V[u].parent;*/
-/*	}*/
-/*	*/
-/*	st[ctr++]=s;*/
-/*	*/
-/*	printf("\nPath to Vertex %d  - ",temp+1);*/
-/*	for(i=ctr-1;i>=0;i--)*/
-/*		printf("%d ",st[i]+1);*/
-/*	*/
-/*	printf("\n");*/
-/*}*/
-
-/*//DAG_ShPath*/
-/*void DAG_ShPath(struct Vertex *V,int s)*/
-/*{}*/
-
-
+void listNegCycleVertices(struct Vertex *V,int s)	//slight modification to Bellman Ford
+{
+	int i,j;
+	int u,v;
+	
+	for(u=0;u<vcnt;u++)
+		V[u].f=0;
+	
+	for(u=0;u<vcnt;u++)
+	{
+		for(j=0;j<V[i].out_deg;j++)
+		{
+			v = V[u].adj[j];
+			if(V[v].dist > V[u].dist + V[u].wt[j])
+				bfsBellmanFord(V,v);
+		}
+	}
+}
 /*void Dijkstra(struct Vertex *V,int s)*/
 /*{*/
 /*	int A[n];*/

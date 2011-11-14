@@ -50,6 +50,57 @@ void breadthFirstSearch(struct Vertex *V,int s)
 	freeQueue(&Q);
 }
 
+void bfsBellmanFord(struct Vertex *V,int s)
+{
+	int u,v;
+	int i;
+	struct Queue Q;
+	
+	for(u=0;u<vcnt;u++)
+	{
+		V[u].color	=	WHITE;
+		V[u].dist	=	-10;
+		V[u].parent	=	NIL;
+	}
+	
+	V[s].color	=	GRAY;
+	V[s].dist	=	0;
+	V[s].parent	=	NIL;
+	
+	initQueue(&Q,vcnt);
+	
+	enqueue(&Q,s);
+	while(!isQueueEmpty(Q))
+	{
+		u=dequeue(&Q);
+		
+		if(V[u].f != 1)
+		{
+			V[u].f = 1;
+			printf("%d ",u);
+			
+			for(i=0;i<V[u].out_deg;i++)
+			{
+				v = V[u].adj[i];
+
+				if(V[v].color==WHITE)
+				{
+					V[v].color	=	GRAY;
+					V[v].dist	=	V[u].dist+1;
+					V[v].parent	=	u;
+				
+					enqueue(&Q,v);
+				}
+			
+				V[u].color = BLACK;
+			}
+		}
+		
+	}
+	
+	freeQueue(&Q);
+}
+
 void printReachable(struct Vertex *V,int s)
 {
 	int i;

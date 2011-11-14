@@ -18,6 +18,7 @@ main()
 	printf("\n**Input Graph**\n");
 	buildGraph(&V);
 	
+	printf("\n***Graph Display***");
 	displayGraph(V);
 	
 	freeGraph(&V);

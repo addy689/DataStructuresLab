@@ -13,14 +13,14 @@
 #---- END OF COMMENT ----
 
 
-gcc -c ../Libraries/GraphTraversalLib/graphTravlib.c
-gcc -c ../Libraries/GraphLib/graphlib.c
+#gcc -c ../Libraries/GraphTraversalLib/graphTravlib.c
+#gcc -c ../Libraries/GraphLib/graphlib.c
 #gcc -c ../Libraries/DjSetLib/djsetlib.c
 #gcc -c ../Libraries/PriorityQLib/PQlib.c
 #gcc -c ../Libraries/HeapLib/heaplib.c
 #gcc -c ../Libraries/Functions/funclib.c
-gcc -c ../Libraries/QueueLib/queuelib.c
-gcc -c ../Libraries/ShPathLib/shpathlib.c
+#gcc -c ../Libraries/QueueLib/queuelib.c
+#gcc -c ../Libraries/ShPathLib/shpathlib.c
 
-gcc singlesrc_shrtpath.c *.o
+gcc someprogram.c *.o
 ./a.out

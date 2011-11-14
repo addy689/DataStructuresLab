@@ -28,6 +28,8 @@ main()
 	
 	printf("\n**Input Graph**\n");
 	buildGraph(&V);
+	
+	printf("\n***Graph Display***");
 	displayGraph(V);
 
 	//MENU for selecting method of graph traversal
@@ -57,7 +59,8 @@ main()
 	
 			switch(ch2)
 			{
-				case 1: 	displayGraph(V);
+				case 1: 	printf("\n***Graph Display***");
+							displayGraph(V);
 							break;
 				
 				case 2: 	printf("\n***Vertices Reachable From Source***\n");

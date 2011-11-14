@@ -28,6 +28,7 @@ int main()
 	
 	buildGraph(&V);
 	
+	printf("\n***Graph Display***");
 	displayGraph(V);
 	
 	

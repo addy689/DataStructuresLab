@@ -142,13 +142,16 @@ void displayGraph(struct Vertex *V)
 {
 	int i,j;
 	
-	printf("\n***Graph Display***");
 	for(i=0;i<vcnt;i++)
 	{
-		printf("\n%d ->\t",i+1);
+		printf("\n%d ->",i+1);
 		
 		for(j=0;j<(V[i].out_deg);j++)
-			printf("%d ",V[i].adj[j]+1);
+		{
+			printf("\t%d",V[i].adj[j]+1);
+			if(wtd==WEIGHTED)
+				printf("(%d)",V[i].wt[j]);
+		}
 	}
 	
 	printf("\n");

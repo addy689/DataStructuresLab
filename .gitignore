@@ -4,6 +4,8 @@
 
 Test/
 
+Main/makefile
+
 *.o
 */*.o
 */*/*.o

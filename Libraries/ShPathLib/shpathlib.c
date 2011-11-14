@@ -65,7 +65,7 @@ int bellmanFord(struct Vertex *V,int s)
 void printShPath(struct Vertex *V,int s,int v)
 {
 	if(v==s)
-		printf("%d",s);
+		printf("%d",s+1);
 	
 	else if(V[v].parent==NIL)
 		printf("Inputed vertex is not reachable from the source vertex!!\n");
@@ -73,7 +73,7 @@ void printShPath(struct Vertex *V,int s,int v)
 	else 
 	{
 		printShPath(V,s,V[v].parent);
-		printf(" -> %d",v);
+		printf(" -> %d",v+1);
 	}
 }
 
@@ -95,6 +95,7 @@ void listNegCycleVertices(struct Vertex *V,int s)	//slight modification to Bellm
 		}
 	}
 }
+
 /*void Dijkstra(struct Vertex *V,int s)*/
 /*{*/
 /*	int A[n];*/
@@ -115,41 +116,4 @@ void listNegCycleVertices(struct Vertex *V,int s)	//slight modification to Bellm
 /*		u=heap_min_extract(Q);*/
 /*	}*/
 
-/*}*/
-
-/*void Bellman(struct Vertex *V,int s)*/
-/*{*/
-/*	int i,j,u,v,k,p,x;*/
-/*	*/
-/*	Initialize_SS(V,s);*/
-/*	for(i=0;i<n-1;i++)*/
-/*		for(u=0;u<n;u++)*/
-/*			for(j=0;j<V[u].out_deg;j++)*/
-/*				Relax(V,u,j);*/
-
-/*	//Can be attempted another way - using BFS after finding a negative weight cycle*/
-/*	printf("\n\nListing of vertices that have a negative weight cycle on some path from the source to that vertex - ");*/
-/*	for(i=0;i<n;i++)*/
-/*	{*/
-/*		if(V[i].parent!=-1)*/
-/*		{*/
-/*			k=i;*/
-/*			*/
-/*			do{*/
-/*				p=V[k].parent;*/
-/*				*/
-/*				for(x=0;x<V[p].out_deg;x++)*/
-/*					if(V[p].adj[x]==k)*/
-/*						break;*/
-
-/*				if(V[p].dist + V[p].wt[x] < V[k].dist)*/
-/*				{*/
-/*					printf("%d ",i+1);*/
-/*					break;*/
-/*				}								*/
-/*				*/
-/*				k=V[k].parent;*/
-/*			}while(k!=s);*/
-/*		}*/
-/*	}*/
 /*}*/

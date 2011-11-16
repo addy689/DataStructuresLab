@@ -45,9 +45,10 @@ void addVertex(struct Vertex ** vt)
 		do
 		{
 			printf(" V= ");
-			scanf("%d",&in); 	//takes vertex index as input in a variable 'ch'
-	
-			if(in!=-1)		//if input is -1, stops input  
+			scanf("%d",&in); 	//takes vertex index as input in a variable 'in'
+			in--;
+			
+			if(in!=-2)		//if input is -1, stops input  
 			{
 				if(wtd==WEIGHTED)
 				{
@@ -55,19 +56,22 @@ void addVertex(struct Vertex ** vt)
 					scanf("%d",&wgt);
 				}
 			
-				if(in<=vcnt)	//checks if the inbound vertex is not already present, and updates its adjacency list
+				if(in<vcnt)	//checks if the inbound vertex is not already present, and updates its adjacency list
 				{
 					k=0;
 					while(k<Vt[in].out_deg)		//searches the adjacent vertices array of vertex 'in' for vertex 'vcnt'
 					{
 						if(Vt[in].adj[k]==vcnt)
-						flg=1;
+						{
+							flg=1;
+							break;
+						}
+						
 						k++;
 					}
 					
-					if(flg==1)
+					if(flg!=1)
 					{
-						in--;
 						num=Vt[in].out_deg++;
 						addAdjVert(&Vt[in].adj,num+1);
 						Vt[in].adj[num]=vcnt;
@@ -82,7 +86,7 @@ void addVertex(struct Vertex ** vt)
 				}
 			}
 		
-		}while(in!=-1);
+		}while(in!=-2);
 	}
 	
 	//INPUT LIST OF OUTBOUND VERTICES FOR THE CURRENT VERTEX

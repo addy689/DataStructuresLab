@@ -5,6 +5,7 @@
 Test/
 
 Main/makefile
+Main/settings.c
 
 *.o
 */*.o

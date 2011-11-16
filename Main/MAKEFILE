@@ -14,7 +14,7 @@
 
 
 
-#gcc -c ../Libraries/BTreeLib/btreelib.c
+gcc -c ../Libraries/BTreeLib/btreelib.c
 #gcc -c ../Libraries/ShPathLib/shpathlib.c
 #gcc -c ../Libraries/GraphTraversalLib/graphTravlib.c
 #gcc -c ../Libraries/GraphLib/graphlib.c
@@ -24,5 +24,5 @@
 #gcc -c ../Libraries/Functions/funclib.c
 #gcc -c ../Libraries/QueueLib/queuelib.c
 
-gcc someprogram.c *.o
-./a.out
+gcc btree.c *.o
+./a.out testdoc.txt

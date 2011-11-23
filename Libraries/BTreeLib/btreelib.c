@@ -20,36 +20,40 @@ void btreeCreate()
 void allocateNode(struct Node ** M)
 {
 	(*M) = malloc(sizeof(struct Node));
-	(*M)->key = malloc(sizeof(int)*2*t-1);
+	(*M)->key = malloc(sizeof(char)*2*t-1);
 	(*M)->child = malloc(sizeof(struct Node *)*2*t);
 }
 
 
 //INSERTION
-void btreeInsert(int k)
+void btreeInsert(char *k)
 {
 	struct Node *r;
 	
 	r = root;
-	
 	if(r->n == 2*(t-1))				//Root node is full, so split and insert key in the new Root
 	{
-		struct Node *s;
-		
-		s->n = 0;
-		s->leaf = TRUE;
-		s->h = 0;
-		s->child[0] = r;
-		root = s;
-		
-		btreeSplitChild(s,0);
-		btreeInsertNonFull(s,k);
+		btreeSplitRoot();
+		btreeInsertNonFull(root,k);
 	}
 	
 	else btreeInsertNonFull(r,k);	//Root node is not full, so insert key in it
 }
 
-void btreeInsertNonFull(struct Node *N,int k)
+void btreeSplitRoot()
+{
+	struct Node *s;
+		
+	s->n = 0;
+	s->leaf = TRUE;
+	s->h = 0;
+	s->child[0] = root;
+	root = s;
+
+	btreeSplitChild(s,0);
+}
+
+void btreeInsertNonFull(struct Node *N,char *k)
 {
 	int i;
 	
@@ -127,6 +131,7 @@ void btreeSplitChild(struct Node *N,int i)
 }
 
 //SEARCHING
+/*
 void btreeSearch(struct Node *N,int k)			//searches for the key 'k' in the B-tree
 {
 	int i,n;
@@ -145,4 +150,35 @@ void btreeSearch(struct Node *N,int k)			//searches for the key 'k' in the B-tre
 		printf("\nKey not found");
 	
 	else btreeSearch(N->child[i],k);
+}
+*/
+
+//LISTING KEYS
+void listKeys(struct Node *N)
+{
+	if(N->leaf==TRUE)
+		displayNode(N);
+
+	else
+	{
+		listKeys(N->child[0]);
+		
+		displayNode(N);
+		
+		int i;
+		for(i=1;i<=(N->n);i++)
+			listKeys(N->child[i]);
+	}
+}
+
+void displayNode(struct Node *N)
+{
+	int i;
+	printf("\n--NODE--\n");
+
+	printf("Keys: "); 
+	for(i=0;i<(N->n);i++)
+		printf("%s",N->key[i]);
+
+	printf("\nDepth: %d\n",N->h);
 }

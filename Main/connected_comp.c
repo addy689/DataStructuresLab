@@ -1,7 +1,7 @@
 /**
 * Sample main program to input a graph and list all its connected components using Disjoint Set data structure.
 
-*This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
+* This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
 
 *	gcc -c ../Libraries/GraphLib/graphlib.c
 *	gcc -c ../Libraries/DjSetLib/djsetlib.c

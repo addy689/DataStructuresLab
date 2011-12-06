@@ -1,7 +1,7 @@
 /**
-*Sample main program to input a graph dynamically, display its adjacency list representation, and release the memory allocated to the graph.
+* Sample main program to input a graph dynamically, display its adjacency list representation, and release the memory allocated to the graph.
 
-*This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
+* This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
 
 *	gcc -c ../Libraries/GraphLib/graphlib.c
 

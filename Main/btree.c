@@ -1,10 +1,9 @@
 /**
-* Sample main program to find single source shortest path using Bellman Ford and Dijkstra's algorithms 
+* Sample main program to perform basic operations on B-Trees 
 
-*This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
+* This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
 
-*	gcc -c ../Libraries/ShPathLib/shpathlib.c
-
+*	gcc -c ../Libraries/BTreeLib/btreelib.c
 
 */
 
@@ -23,6 +22,7 @@ main()
 		printf(" 2. Display\n");
 		printf("    Enter your choice : ");
 		scanf("%d",&ch);
+		
 		switch(ch){
 			case 1: {
 					printf("Enter the key value: ");

@@ -1,7 +1,7 @@
 /**
 * Sample main program to find single source shortest path using Bellman Ford and Dijkstra's algorithms 
 
-*This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
+* This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
 
 *	gcc -c ../Libraries/ShPathLib/shpathlib.c
 *	gcc -c ../Libraries/GraphTraversalLib/graphTravlib.c

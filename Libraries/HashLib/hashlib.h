@@ -7,6 +7,7 @@
 #include<string.h>
 
 #define m 26
+#define size 255
 
 //Structure that defines a node in a Hash Table chain
 struct Node{
@@ -18,6 +19,6 @@ struct Node *NIL;							//to be used as NULL pointer
 
 void insertData(struct Node **,char *);					//inserts the input data
 int hashData(char);						//applies the hashing function on the input data (on data[0] actually)
-void allocateNode(struct Node **);			//allocates memory to a node at runtime
+void allocateNode(struct Node **,int);			//allocates memory to a node at runtime
 /*void deleteData(struct Node *)*/
-void displayData(struct Node *);			//displays the chains corresponding to each hash table slot
+void displayTable(struct Node **);			//displays the chains corresponding to each hash table slot

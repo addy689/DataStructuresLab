@@ -4,20 +4,21 @@
 
 #include "hashlib.h"
 
-
 void insertData(struct Node **H, char *str)
 {
 	int k;
 	
 	k = hashData(str[0]);
-	
+	printf("%d",k);
+	printf("\n%s",str);
+
 	struct Node *N;
 	allocateNode(&N,strlen(str));
 	
 	strcpy(N->data,str);		//input data is copied into the new node
-	N->next = H[k]; 			//first node in the existing chain is assigned as the next node to the new node
+	N->next = H[k];			//first node in the existing chain is assigned as the next node to the new node
 	
-	H[k] = &N;					//new node is inserted at the Head of the chain
+	H[k] = N;					//new node is inserted at the Head of the chain
 }
 
 int hashData(char ch)
@@ -33,7 +34,7 @@ void allocateNode(struct Node ** M,int len)
 	(*M)->next = NIL;
 }
 
-void displayData(struct Node *)
+void displayTable(struct Node ** H)
 {
 	int i;
 	struct Node *ptr;
@@ -44,7 +45,7 @@ void displayData(struct Node *)
 		printf("\n%d ->",i);
 		
 		ptr = H[i];
-		while(ptr->next!=NIL)
+		while(ptr!=NIL)
 		{
 			printf("\t%s",ptr->data);
 			ptr = ptr->next;

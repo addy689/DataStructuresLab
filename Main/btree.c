@@ -1,110 +1,113 @@
 /**
-* Sample main program to perform basic operations on B-Trees 
+* Sample main program to demonstrate B-Tree operations 
 
-* This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
+*This program uses the following Libraries. Uncomment these libraries in the file MAKEFILE before running this program (refer to MAKEFILE for instructions on executing this program) -
 
-*	gcc -c ../Libraries/BTreeLib/btreelib.c
+*	gcc -c ../Libraries/ShPathLib/shpathlib.c
+
 
 */
 
-#include "../Libraries/BTreeLib/btreelib.h"
+#include <string.h>
+#include <ctype.h>
 
-main()
+#include "../Libraries/BTreeLib/btreelib.h"
+#define SIZE 255
+
+int isName(char *s)
 {
-	// main
-	int ch,keyvalue;
-	root = allocateNode();
-	root -> n = 0;
-	root -> leaf = 1;
-	do {
-		printf("------------------- Menu -------------------\n");
-		printf(" 1. Insert\n");
-		printf(" 2. Display\n");
-		printf("    Enter your choice : ");
-		scanf("%d",&ch);
-		
-		switch(ch){
-			case 1: {
-					printf("Enter the key value: ");
-					scanf("%d",&keyvalue);
-					btreeInsert(keyvalue);
-					break;
-					}
-			case 2: {
-					struct node *tmp;
-					tmp = root;
-					display(tmp);
-					break;
-					}
-		}
-	}while (ch<3);
+	if(isalpha(s[0]))
+		return 1;
 }
 
-B-Tree-FindLargest(x)
-//x is the root of the subtree to be searched.
-//B-Tree-FindLargest returns a pointer to the node containing the largest key in the subtree whose root is x.
-
-current_node = x
-while current_node is not a leaf
-current_node = largest child node of current_node
-end while
-return current_node 
-
-B-Tree-Delete(x, k)
-//k is the key to be deleted and 
-//x is the root of the subtree from which k is to be deleted.
-//B-Tree-Delete returns true if it successfully deletes k else it returns false.
-//Note: This function is designed so that whenever it is called recursively x has at least t keys.
+int main(int argc, char *argv[])
 {
-if x is a leaf then
-		if k is in x then
-			delete k from x and return true
-		
-		else return false //k is not in subtree
+	char str[SIZE],c,arr[50][100];
+	int t,ch,len;
+	int i,j,k;
+	FILE *fp;
 
-else //x is an internal node
+	if (argc < 2)
 	{
-		if k is in x then 
-		{
-			y = the child of x that precedes k
-
-			if y has at least t keys then
-					k' = the predecessor of k (use B-Tree-FindLargest)
-					Copy k' over k //i.e., replace k with k'
-					B-Tree-Delete(y, k') //Note: recursive call
-
-			else //y has t-1 keys
-			{
-				z = the child of x that follows k
-				
-				if z has at least t keys then
-						k' = the successor of k
-						Copy k' over k //i.e., replace k with k'
-						B-Tree-Delete(z, k') //Note: recursive call
-	
-				else //both y and z have t-1 keys. merge k and all of z into y | y now contains 2t-1 keys.| k and the pointer to z will be deleted from x.
-				B-Tree-Delete(y, k) //Note: recursive call
-			}
-		}
+		printf ("\nError..!!\nInput text filename missing.!!\n");
+		exit(1);
 	}
 	
-		else //k is not in internal node x.
-			ci[x] points to the root, c, of the subtree that could contain k.
+	printf("\nInput t: ");
+	scanf("%d",&t);	
+
+	btreeCreate();
+	
+	do
+		{
+			printf("\n-------MENU--------\n\n");
+			printf("1.) Read from File\n");
+			printf("2.) Display the root node\n");
+			printf("3.) Visit all the nodes of the tree in Preorder, and list the depth and the keys for each node\n");
+			printf("\nEnter choice (1-4): ");
+			scanf("%d",&ch);
 			
-			if c has t-1 keys then
+			switch(ch)
 			{
-				if c has an immediate left/right sibling, z, with t or more keys then
-						Let k1 be the key in x that precedes/follows c.
-						Move k1 into c as the first/last key in c. 
-						Let k2 be the last/first key in the immediate left/right sibling, z.
-						Replace k1 in x with k2 from z (i.e., move k2 up into x).
-						Move the last/first child subtree of z to be the first/last child subtree of c.
+				case 1:		fp = fopen(argv[1],"r"); 					
 
-			else //c and both of its immediate siblings have t-1 keys.
-				//we cannot descend to a child node with only t-1 keys so merge c with one of its immediate siblings and make the appropriate key of x the middle key of the new node, c.
-//Note: This may cause the root to collapse, thus making c the new root.
+							while (fgets(str,SIZE,fp) != NULL)
+							{
+								len=strlen(str);
+								j=0;
+								for(i=0;i<len;i++)
+								{
+									while(isalnum(str[i]))
+									{
+										arr[j][k]=str[i];
+										k++;
+
+										if(!isalnum(str[i]))
+										{
+											arr[j][k]='\0';
+											j++;
+											k=0;
+										}
+									}
+								}
+
+								for(i=1;i<j;i++)
+								{
+									if(strcmp(arr[i-1],"void")==0 || strcmp(arr[i-1],"int")==0 || strcmp(arr[i-1],"float")==0 || strcmp(arr[i-1],"struct")==0)
+									{
+										if(strcmp(arr[i-1],"struct")==0)
+											strcpy(str,arr[i+1]);
+																					
+										else
+											strcpy(str,arr[i]);
+
+										if(isName(str));
+												btreeInsert(str);
+
+										break;
+									}
+								}
+							}
+								
+							fclose(fp);
+							break;
+				
+				case 2:		displayNode(root);
+							break;
+				
+				case 3:		printf("\n***LIST IF NODES***\n");
+							listKeys(root);	
+
+				case 4:		break;
+				
+				default: c='n';
 			}
-			B-Tree-Delete(c, k)
+
+			printf("\n\nDo you want to go back to menu? (Y/N) - ");
+			scanf("%c",&c);
+			scanf("%c",&c);
+			
+		}while(c=='Y' || c=='y');
+
+		return 0;
 }
-
-

@@ -35,7 +35,8 @@ main()
 	//MENU for selecting method of graph traversal
 	printf("\n1. Traverse graph using Breadth-First Search (BFS)");
 	printf("\n2. Traverse graph using Depth-First Search (DFS)");
-	printf("\nEnter choice (1 or 2): ");
+	printf("\n3. Topologically sort the vertices in the graph");
+	printf("\nEnter choice (1-3): ");
 	scanf("%d",&ch1);
 	
 	
@@ -86,10 +87,9 @@ main()
 	
 	
 	//MENU for Depth-First Search
-	if(ch1==2)
+	else if(ch1==2)
 	{
 		cycle = 0;
-		time = 0;
 		
 		depthFirstSearch(V);
 		printf("\n\nTraversal Complete!!!\n");
@@ -122,6 +122,26 @@ main()
 			scanf("%c",&c);
 			
 		}while(c=='Y' || c=='y');
+	}
+	
+	
+	//MENU for Topological Sort
+	else if(ch1==3)
+	{
+		time = 0;
+		
+		topoSort(V);
+		
+		//Display sorted List
+		struct listNode *ptr;
+		ptr = Head->next;
+		
+		printf("\nTopologically sorted list of vertices - \n");
+		while(ptr!=Nil)
+		{
+			printf("%d\t",ptr->data+1);
+			ptr = ptr->next;
+		}
 	}
 	
 	freeGraph(&V);

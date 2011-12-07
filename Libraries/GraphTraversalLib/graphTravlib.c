@@ -151,8 +151,7 @@ void depthFirstSearch(struct Vertex *V)
 
 void dfsVisit(struct Vertex *V,int u)
 {
-	int i;
-	int v;
+	int i,v;
 	
 	V[u].color	=	GRAY;
 	V[u].d		=	++time;
@@ -199,4 +198,59 @@ int isForwardEdge(struct Vertex *V,int u,int v)
 	}
 	
 	return 0;
+}
+
+void topoSort(struct Vertex *V)
+{
+	int u;
+	
+	for(u=0;u<vcnt;u++)
+	{
+		V[u].color	=	WHITE;
+		V[u].parent	=	NIL;
+	}
+	
+	time = 0;
+	
+	allocateNode(&Head);
+	Head->next = Nil;
+	for(u=0;u<vcnt;u++)
+	{
+		if(V[u].color==WHITE)
+			topoDfsVisit(V,u);
+	}
+}
+
+void topoDfsVisit(struct Vertex *V,int u)
+{
+	int i,v;
+	
+	V[u].color	=	GRAY;
+	V[u].d		=	++time;
+	
+	for(i=0;i<V[u].out_deg;i++)
+	{
+		v = V[u].adj[i];
+		
+		if(V[v].color==WHITE)
+		{
+			V[v].parent = u;
+			topoDfsVisit(V,v);
+		}
+	}
+	
+	V[u].color	=	BLACK;
+	V[u].f		=	++time;
+
+	struct listNode *N;
+	allocateNode(&N);
+	N->data = u;
+	N->next = Head->next;
+	Head->next = N;
+}
+
+void allocateNode(struct listNode ** M)
+{
+	(*M) = malloc(sizeof(struct listNode));
+	(*M)->next = Nil;
 }

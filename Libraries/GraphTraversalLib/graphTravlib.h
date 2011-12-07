@@ -3,12 +3,20 @@
 */
 
 #include<stdio.h>
+#include<stdlib.h>
 #include "../GraphLib/graphlib.h"
 
 #define WHITE 0
 #define GRAY 1
 #define BLACK 2
 #define NIL -1
+
+struct listNode{
+		int data;
+		struct listNode *next;
+	};
+
+struct listNode *Head,*Nil;
 
 //BREADTH FIRST SEARCH
 void breadthFirstSearch(struct Vertex *,int);		//traverses a graph using the Breadth First Search technique
@@ -20,5 +28,12 @@ void printShortestPath(struct Vertex *,int,int);	//prints all vertices in the sh
 int time;
 int cycle;											//if cycle present in graph, then cycle is 1, otherwise 0
 void depthFirstSearch(struct Vertex *);				//traverses a graph using the Depth First Search technique
-void dfsVisit(struct Vertex *,int);					//visits a vertex. This function is called in depthFirstSearch()
+
+void dfsVisit(struct Vertex *,int);					//visits a vertex in the graph. This function is called in depthFirstSearch(). It also prints the tree, forward, back and cross edges in the graph
+
 int isForwardEdge(struct Vertex *,int,int);			//returns 1 if edge (u,v) is a forward edge, otherwise returns 0
+
+//TOPOLOGICAL SORT
+void topoSort(struct Vertex *);						//topologically sorts the vertices, and returns the pointer to the linked list storing the vertices
+void topoDfsVisit(struct Vertex *,int);				//computes the topologically sorted array
+void allocateNode(struct listNode **);				//allocates memory to a node at runtime

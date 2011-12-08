@@ -128,20 +128,13 @@ main()
 	//MENU for Topological Sort
 	else if(ch1==3)
 	{
-		time = 0;
-		
-		topoSort(V);
+		struct listNode *Head;
+		Head = Nil;
+		topoSort(V,&Head);
 		
 		//Display sorted List
-		struct listNode *ptr;
-		ptr = Head->next;
-		
 		printf("\nTopologically sorted list of vertices - \n");
-		while(ptr!=Nil)
-		{
-			printf("%d\t",ptr->data+1);
-			ptr = ptr->next;
-		}
+		displayList(Head);
 	}
 	
 	freeGraph(&V);

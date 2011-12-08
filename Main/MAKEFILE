@@ -13,7 +13,7 @@
 #---- END OF COMMENT ----
 
 
-
+#gcc -c ../Libraries/HashLib/hashlib.c
 #gcc -c ../Libraries/BTreeLib/btreelib.c
 #gcc -c ../Libraries/ShPathLib/shpathlib.c
 #gcc -c ../Libraries/GraphTraversalLib/graphTravlib.c

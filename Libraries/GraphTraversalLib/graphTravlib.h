@@ -26,7 +26,7 @@ void printShortestPath(struct Vertex *,int,int);	//prints all vertices in the sh
 
 //DEPTH FIRST SEARCH
 int time;
-int cycle;											//if cycle present in graph, then cycle is 1, otherwise 0
+int cycle;											//if a cycle present in graph, then 'cycle' is 1, otherwise 0
 void depthFirstSearch(struct Vertex *);				//traverses a graph using the Depth First Search technique
 
 void dfsVisit(struct Vertex *,int);					//visits a vertex in the graph. This function is called in depthFirstSearch(). It also prints the tree, forward, back and cross edges in the graph
@@ -34,6 +34,7 @@ void dfsVisit(struct Vertex *,int);					//visits a vertex in the graph. This fun
 int isForwardEdge(struct Vertex *,int,int);			//returns 1 if edge (u,v) is a forward edge, otherwise returns 0
 
 //TOPOLOGICAL SORT
-void topoSort(struct Vertex *);						//topologically sorts the vertices, and returns the pointer to the linked list storing the vertices
-void topoDfsVisit(struct Vertex *,int);				//computes the topologically sorted array
-void allocateNode(struct listNode **);				//allocates memory to a node at runtime
+void topoSort(struct Vertex *,struct listNode **);		//topologically sorts the vertices, and stores the pointer to the sorted list in pointer *Head
+void topoDfsVisit(struct Vertex *,int,struct listNode **);		//computes the topologically sorted array
+void allocateNode(struct listNode **);							//allocates memory to a node at runtime
+void displayList(struct listNode *);							//displays a linked list using its HEAD pointer

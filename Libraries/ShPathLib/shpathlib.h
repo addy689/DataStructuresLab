@@ -15,8 +15,8 @@ int bellmanFord(struct Vertex *,int);				//implementation of Bellman Ford algori
 void printShPath(struct Vertex *,int,int);		//printing shortest paths to reachable vertices from source vertex
 void listNegCycleVertices(struct Vertex *,int);		//list each of those vertices having a -ve weight cycle on some path from the source to that vertex
 
+//DAG SHORTEST PATH
+void dagShPath(struct Vertex *,int);
+
 //DIJKSTRA'S ALGORITHM
 void dijkstra(struct Vertex *,int);					//implementation of Dijkstra's Algorithm
-
-//DAG SHORTEST PATH
-//void dagShPath(struct Vertex *,int);

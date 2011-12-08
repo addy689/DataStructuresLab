@@ -8,12 +8,11 @@
 *	gcc -c ../Libraries/GraphLib/graphlib.c
 *	gcc -c ../Libraries/QueueLib/queuelib.c
 
-
 */
 
 #include "../Libraries/ShPathLib/shpathlib.h"
 
-main()
+int main()
 {
 	int x,u;
 	int s;			//stores index of the source vertex
@@ -38,7 +37,8 @@ main()
 
 	//MENU for selecting method of computing shortest path of vertices from single source
 	printf("\n1. Bellman Ford");
-	printf("\n2. Dijkstra's");
+	printf("\n2. DAG Shortest Path");
+	printf("\n3. Dijkstra's");
 	printf("\nEnter choice (1 or 2): ");
 	scanf("%d",&ch1);
 	
@@ -50,6 +50,7 @@ main()
 		scanf("%d",&s);
 		
 		negcycle = !bellmanFord(V,s-1);
+		
 		printf("\nShortest path calculation complete!!!\n");
 		
 		
@@ -69,7 +70,7 @@ main()
 							displayGraph(V);
 							break;
 				
-				case 2:		printf("\nVertex\t->\tWeight of shortest path from source");
+				case 2:		printf("\nVertex\t->\tWeight of shortest path from source vertex %d",s);
 							for(u=0;u<vcnt;u++)
 								printf("\n%d\t%d",u+1,V[u].dist);
 							break;
@@ -101,9 +102,71 @@ main()
 		}while(c=='Y' || c=='y');
 	}
 	
-	
+	//MENU for DAG Shortest Path
+	else if(ch1==2)
+	{
+		//checks if a cycle is present in the graph, and terminates if true
+		depthFirstSearch(V);
+		if(cycle==1)
+		{
+			printf("\n\nThe inputed graph is not acyclic! Cannot run DAG Shortese Path algorithm. Terminating program!!\n\n");
+			return 1;
+		}
+		
+		printf("\nInput Source Vertex: ");
+		scanf("%d",&s);
+		
+		dagShPath(V,s-1);
+		
+		printf("\nShortest path calculation complete!!!\n");
+		
+		
+		do
+		{
+			printf("\n-------MENU--------\n\n");
+			printf("1.) Display Adjacency List representation of inputed graph\n");
+			printf("2.) Display the weight of the shortest path (from the source vertex) to each vertex\n");
+			printf("3.) Input a vertex, and print the shortest path to that vertex from the source vertex\n");
+			printf("\nEnter choice (1-4): ");
+			scanf("%d",&ch2);
+			
+			switch(ch2)
+			{
+				case 1:		printf("\n***Graph Display***");
+							displayGraph(V);
+							break;
+				
+				case 2:		printf("\nVertex\t->\tWeight of shortest path from source vertex %d",s);
+							for(u=0;u<vcnt;u++)
+								printf("\n%d\t%d",u+1,V[u].dist);
+							break;
+				
+				case 3:		if(negcycle)
+							{
+								printf("\nNegative weight cycle has been detected!!");
+								break;
+							}
+							
+							printf("\n***Print Shortest Path***");
+							printf("\nEnter vertex: ");
+							scanf("%d",&x);
+							printf("\nPath - ");
+							printShPath(V,s-1,x-1);
+							break;
+							
+				default: c='n';
+			}
+
+			printf("\n\nDo you want to go back to menu? (Y/N) - ");
+			scanf("%c",&c);
+			scanf("%c",&c);
+			
+		}while(c=='Y' || c=='y');
+	}
+
 	//MENU for Dijkstra's
 	
 	freeGraph(&V);
+	
+	return 0;
 }
-

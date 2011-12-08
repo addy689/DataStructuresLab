@@ -200,7 +200,7 @@ int isForwardEdge(struct Vertex *V,int u,int v)
 	return 0;
 }
 
-void topoSort(struct Vertex *V)
+void topoSort(struct Vertex *V,struct listNode ** H)
 {
 	int u;
 	
@@ -212,16 +212,16 @@ void topoSort(struct Vertex *V)
 	
 	time = 0;
 	
-	allocateNode(&Head);
-	Head->next = Nil;
 	for(u=0;u<vcnt;u++)
 	{
 		if(V[u].color==WHITE)
-			topoDfsVisit(V,u);
+			topoDfsVisit(V,u,H);
 	}
 }
 
-void topoDfsVisit(struct Vertex *V,int u)
+
+//TOPOLOGICAL SORT
+void topoDfsVisit(struct Vertex *V,int u,struct listNode ** H)
 {
 	int i,v;
 	
@@ -235,22 +235,38 @@ void topoDfsVisit(struct Vertex *V,int u)
 		if(V[v].color==WHITE)
 		{
 			V[v].parent = u;
-			topoDfsVisit(V,v);
+			topoDfsVisit(V,v,H);
 		}
 	}
 	
 	V[u].color	=	BLACK;
 	V[u].f		=	++time;
 
+	//Store the topologically sorted vertices in a linked list
 	struct listNode *N;
 	allocateNode(&N);
 	N->data = u;
-	N->next = Head->next;
-	Head->next = N;
+	N->next = (*H);
+	(*H) = N;
+	
+	struct listNode *ptr;
+	ptr = Head;
 }
 
 void allocateNode(struct listNode ** M)
 {
 	(*M) = malloc(sizeof(struct listNode));
 	(*M)->next = Nil;
+}
+
+void displayList(struct listNode *Head)
+{
+	struct listNode *ptr;
+	ptr = Head;
+	
+	while(ptr!=Nil)
+	{
+		printf("%d\t",ptr->data+1);
+		ptr = ptr->next;
+	}
 }

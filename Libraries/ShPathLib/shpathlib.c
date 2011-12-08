@@ -96,6 +96,31 @@ void listNegCycleVertices(struct Vertex *V,int s)	//slight modification to Bellm
 	}
 }
 
+//DAG SHORTEST PATH
+void dagShPath(struct Vertex *V,int s)
+{
+	int u,i;
+	
+	struct listNode *Head,*ptr;
+	Head = Nil;
+	
+	//topologically sort the vertices
+	topoSort(V,&Head);
+	
+	//initialize source vertex s
+	initializeSrc(V,s);
+	
+	ptr = Head;
+	while(ptr!=Nil)
+	{
+		u = ptr->data;
+		printf("\n%d",u);
+		for(i=0;i<V[u].out_deg;i++)
+			relax(V,u,i);
+		
+		ptr = ptr->next;
+	}
+}
 /*void Dijkstra(struct Vertex *V,int s)*/
 /*{*/
 /*	int A[n];*/
